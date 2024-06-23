@@ -26,7 +26,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*", "0.0.0.0:5173", "127.0.0.1", "127.0.0.1:5173", "localhost", "localhost:5173","172.20.10.2"]
 
 
 # Application definition
@@ -39,12 +39,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    # 3rd party apps 
+    # Third party
     'rest_framework',
     'rest_framework.authtoken',
 
-    # project apps
-    'users',
+    # Apps
+    'api',
 
 ]
 
@@ -59,6 +59,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "eventure.urls"
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 TEMPLATES = [
     {
@@ -110,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # User model
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'api.User'
 
 
 # Rest framework configurations

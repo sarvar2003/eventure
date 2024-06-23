@@ -12,9 +12,9 @@ from rest_framework import generics
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 
-from users import serializers
-from users import user_permissions
-from users import utils
+from api.serializers import user_serializers
+from api.permissions import user_permissions
+from api.utils import utils
 
 # Create your views here.
 
@@ -23,7 +23,7 @@ class AllUsersAPIView(generics.ListAPIView):
 
     """API view for listing users"""
 
-    serializer_class = serializers.UserSerializer
+    serializer_class = user_serializers.UserSerializer
     permission_classes = (user_permissions.AllowAny,)
     queryset = get_user_model().objects.all()
 
@@ -32,7 +32,7 @@ class UserAPIView(views.APIView):
 
     """API view for User model"""
 
-    serializer_class = serializers.UserSerializer
+    serializer_class = user_serializers.UserSerializer
     permission_classes = (user_permissions.AllowAny,)
 
     def post(self, request):
@@ -54,7 +54,7 @@ class UserAPIView(views.APIView):
         absolute_url = 'http://' + current_site_domain + relative_url
         email_body = 'Please use this link below to verify your email for Eventure \n' + absolute_url
 
-        html_message = render_to_string('users/verification-email.html', context={'first_name': user_data.get('first_name'), 'absolute_url': absolute_url})
+        html_message = render_to_string('api/verification-email.html', context={'first_name': user_data.get('first_name'), 'absolute_url': absolute_url})
 
         data = {'subject': 'Email Verification Eventure', 'body': email_body, 'to': user_data.get('email'), 'html_message': html_message}
 
@@ -67,7 +67,7 @@ class VerifyEmailAPIView(views.APIView):
 
     """API view for verifying user email"""
 
-    serializer_class = serializers.VerifyEmailSerializer
+    serializer_class = user_serializers.VerifyEmailSerializer
     permission_classes = (user_permissions.AllowAny,)
 
     def get(self, request, token):
@@ -103,7 +103,7 @@ class RetrieveUserAPIView(generics.RetrieveAPIView):
 
     """API view for retrieving user details"""
 
-    serializer_class = serializers.UserSerializer
+    serializer_class = user_serializers.UserSerializer
     permission_classes = (user_permissions.IsOwner, user_permissions.IsOwnerOrReadOnly)
 
     def get_object(self):
@@ -114,7 +114,7 @@ class UpdateUserAPIView(generics.RetrieveUpdateDestroyAPIView):
 
     """API view for updating user details"""
 
-    serializer_class = serializers.UpdateUserSerializer
+    serializer_class = user_serializers.UpdateUserSerializer
     permission_classes = (user_permissions.IsOwnerOrReadOnly,)
 
     def get_object(self):
@@ -125,7 +125,7 @@ class SendPasswordResetLinkAPIView(views.APIView):
 
     """API view for sending password reset link"""
 
-    serializer_class = serializers.SendResetLinkSerializer
+    serializer_class = user_serializers.SendResetLinkSerializer
     permission_classes = (user_permissions.AllowAny,)
 
     def post(self, request):
@@ -142,7 +142,7 @@ class SendPasswordResetLinkAPIView(views.APIView):
             relative_url = reverse('reset-password', kwargs={'token': token})
             absolute_url = 'http://' + current_site_domain + relative_url
             email_body = f'Hello, {user.first_name}, use the link below to reset your password \n\n {absolute_url}' 
-            html_message = render_to_string('users/password-reset-link-email.html', context={'first_name': user.first_name, 'absolute_url': absolute_url})
+            html_message = render_to_string('api/password-reset-link-email.html', context={'first_name': user.first_name, 'absolute_url': absolute_url})
 
             data = {'subject': 'Eventure Password Reset', 'body': email_body, 'to': user.email, 'html_message': html_message}
 
@@ -158,7 +158,7 @@ class ResetPasswordAPIView(views.APIView):
 
     """API view for user password reset"""
 
-    serializer_class = serializers.PasswordResetSerializer
+    serializer_class = user_serializers.PasswordResetSerializer
     permission_classes = (user_permissions.AllowAny,)
 
     def get(self, request, token):
@@ -183,7 +183,7 @@ class ResetPasswordAPIView(views.APIView):
 
         serializer.is_valid(raise_exception=True)
 
-        user_token, created_at = Token.objects.get(key=token)
+        user_token = Token.objects.get(key=token)
         
         user = get_user_model().objects.get(id=user_token.user.id)
 
@@ -200,7 +200,7 @@ class VerifyTokenAPIView(views.APIView):
 
     """API view for verifying token"""
 
-    serializer_class = serializers.VerifyTokenSerializer
+    serializer_class = user_serializers.VerifyTokenSerializer
     permission_classes = (user_permissions.AllowAny,)
 
     def post(self, request):
@@ -251,7 +251,7 @@ class ObtainAuthTokenView(ObtainAuthToken):
 
     """API view for obtaining auth token"""
 
-    serializer_class = serializers.AuthTokenSerializer
+    serializer_class = user_serializers.AuthTokenSerializer
     permission_classes = (user_permissions.AllowAny,)
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
 
