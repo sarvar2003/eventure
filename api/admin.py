@@ -3,11 +3,11 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 
-from api.models.user import User
+from api.models import user, event, filters
 
 # Register your models here.
 
-@admin.register(User)
+@admin.register(user.User)
 class UserAdminConfig(UserAdmin):
 
     """User config for Admin Dashboard."""
@@ -26,3 +26,20 @@ class UserAdminConfig(UserAdmin):
             'fields': ('email', 'password1', 'password2')
         })
     )
+
+
+@admin.register(event.Event)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('id','host', 'title', 'category', 'language', 'location', 'date_time', 'number_of_seats', 'ticket_price', 'currency', 'thumbnail', 'description' )
+    prepopulated_fields = {'slug_title': ('title',),}
+    
+@admin.register(filters.Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title')
+    prepopulated_fields = {'slug_title': ('title',),}
+
+
+@admin.register(filters.Topic)
+class TopicAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'category')
+    prepopulated_fields = {'slug_title': ('title',),}
