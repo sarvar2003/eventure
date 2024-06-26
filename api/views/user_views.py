@@ -13,7 +13,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 
 from api.serializers import user_serializers
-from api.permissions import user_permissions
+from api.permissions import permissions
 from api.utils import utils
 
 # Create your views here.
@@ -24,7 +24,7 @@ class AllUsersAPIView(generics.ListAPIView):
     """API view for listing users"""
 
     serializer_class = user_serializers.UserSerializer
-    permission_classes = (user_permissions.AllowAny,)
+    permission_classes = (permissions.AllowAny,)
     queryset = get_user_model().objects.all()
 
 
@@ -33,7 +33,7 @@ class UserAPIView(views.APIView):
     """API view for User model"""
 
     serializer_class = user_serializers.UserSerializer
-    permission_classes = (user_permissions.AllowAny,)
+    permission_classes = (permissions.AllowAny,)
 
     def post(self, request):
 
@@ -68,7 +68,7 @@ class VerifyEmailAPIView(views.APIView):
     """API view for verifying user email"""
 
     serializer_class = user_serializers.VerifyEmailSerializer
-    permission_classes = (user_permissions.AllowAny,)
+    permission_classes = (permissions.AllowAny,)
 
     def get(self, request, token):
 
@@ -104,7 +104,7 @@ class RetrieveUserAPIView(generics.RetrieveAPIView):
     """API view for retrieving user details"""
 
     serializer_class = user_serializers.UserSerializer
-    permission_classes = (user_permissions.IsOwner, user_permissions.IsOwnerOrReadOnly)
+    permission_classes = (permissions.IsOwner, permissions.IsOwnerOrReadOnly)
 
     def get_object(self):
         return get_user_model().objects.get(email=self.kwargs.get('email'))
@@ -115,7 +115,7 @@ class UpdateUserAPIView(generics.RetrieveUpdateDestroyAPIView):
     """API view for updating user details"""
 
     serializer_class = user_serializers.UpdateUserSerializer
-    permission_classes = (user_permissions.IsOwnerOrReadOnly,)
+    permission_classes = (permissions.IsOwnerOrReadOnly,)
 
     def get_object(self):
         return get_user_model().objects.get(email=self.kwargs.get('email'))
@@ -126,7 +126,7 @@ class SendPasswordResetLinkAPIView(views.APIView):
     """API view for sending password reset link"""
 
     serializer_class = user_serializers.SendResetLinkSerializer
-    permission_classes = (user_permissions.AllowAny,)
+    permission_classes = (permissions.AllowAny,)
 
     def post(self, request):
 
@@ -159,7 +159,7 @@ class ResetPasswordAPIView(views.APIView):
     """API view for user password reset"""
 
     serializer_class = user_serializers.PasswordResetSerializer
-    permission_classes = (user_permissions.AllowAny,)
+    permission_classes = (permissions.AllowAny,)
 
     def get(self, request, token):
         
@@ -201,7 +201,7 @@ class VerifyTokenAPIView(views.APIView):
     """API view for verifying token"""
 
     serializer_class = user_serializers.VerifyTokenSerializer
-    permission_classes = (user_permissions.AllowAny,)
+    permission_classes = (permissions.AllowAny,)
 
     def post(self, request):
 
@@ -252,7 +252,7 @@ class ObtainAuthTokenView(ObtainAuthToken):
     """API view for obtaining auth token"""
 
     serializer_class = user_serializers.AuthTokenSerializer
-    permission_classes = (user_permissions.AllowAny,)
+    permission_classes = (permissions.AllowAny,)
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
 
     def post(self, request):

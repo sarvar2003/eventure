@@ -66,6 +66,9 @@ pip-delete-this-directory.txt
 *.zip
 *.sublime-project
 *.sublime-workspace
+*.jpeg
+*.jpg
+*.png
 
 # Logs and database
 *.log

@@ -1,4 +1,7 @@
 from django.db import models
+from django.utils.text import slugify
+
+from typing import Iterable
 from api.models import choices
 
 class Event(models.Model):
@@ -19,9 +22,13 @@ class Event(models.Model):
     number_of_seats = models.PositiveIntegerField()
     ticket_price = models.DecimalField(max_digits=6, decimal_places=2)
     currency = models.CharField(max_length=50, choices=choices.CURRENCY_CHOICES)
-    thumbnail = models.FileField(upload_to=None, max_length=100, blank=True, null=True)
+    thumbnail = models.FileField(upload_to='images/', max_length=100, blank=True, null=True)
     description = models.TextField()
 
+
+    def save(self,*args, **kwargs) -> None:
+        self.slug_title = slugify(self.title)
+        super(Event, self).save(*args, **kwargs)
 
     def __str__(self) -> str:
         return self.slug_title
