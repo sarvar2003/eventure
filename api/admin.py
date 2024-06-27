@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 
-from api.models import user, event, filters
+from api.models import user, event, filters, reservation
 
 # Register your models here.
 
@@ -43,3 +43,9 @@ class CategoryAdmin(admin.ModelAdmin):
 class TopicAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'category')
     prepopulated_fields = {'slug_title': ('title',),}
+
+
+@admin.register(reservation.Reservation)
+class ReservationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'event', 'guest', 'number_of_tickets', 'status')
+
