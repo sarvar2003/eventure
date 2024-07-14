@@ -65,6 +65,3 @@ class RetreiveReservation(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         return self.queryset.get(id=self.kwargs.get('id'))
 
-
-
-
