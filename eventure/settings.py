@@ -42,9 +42,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Third-party
-    'corsheaders',
+    "corsheaders",
     "rest_framework",
-    'django_filters',
+    "django_filters",
     "rest_framework.authtoken",
     "multiselectfield",
     # Apps
@@ -55,12 +55,14 @@ INSTALLED_APPS = [
 
 # Filtering
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.TokenAuthentication',],
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-    'DEFAULT_PARSER_CLASSES': (
-        'rest_framework.parsers.FormParser',
-        'rest_framework.parsers.MultiPartParser'
-    )
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
+    "DEFAULT_PARSER_CLASSES": (
+        "rest_framework.parsers.FormParser",
+        "rest_framework.parsers.MultiPartParser",
+    ),
 }
 
 MIDDLEWARE = [
@@ -77,7 +79,6 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "https://eventure-client.vercel.app",
 ]
-
 
 
 ROOT_URLCONF = "eventure.urls"
@@ -99,7 +100,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "eventure.wsgi.application"
-
 
 
 # Database
@@ -148,7 +148,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # MEDIA_URL = '/media/'
@@ -156,7 +156,6 @@ STATIC_URL = '/static/'
 
 
 # Email
-
 
 
 EMAIL_USE_TLS = True

@@ -11,17 +11,16 @@ from . import serializers
 from . import models
 from core import custom_permission, utils
 
-class ListReservationsAPIView(generics.ListAPIView):
 
+class ListReservationsAPIView(generics.ListAPIView):
     """API view to list all reservations"""
 
     serializer_class = serializers.ReservationSerializer
     permission_classes = (custom_permission.AllowAny,)
-    queryset = models.Reservation.objects.all() 
+    queryset = models.Reservation.objects.all()
 
 
 class ListEventReservationsAPIView(generics.ListAPIView):
-
     """API view to list event reservations"""
 
     serializer_class = serializers.ReservationSerializer
@@ -29,11 +28,10 @@ class ListEventReservationsAPIView(generics.ListAPIView):
     queryset = models.Reservation.objects.all()
 
     def get_queryset(self):
-        return self.queryset.filter(event=self.kwargs.get('event_id'))
-    
+        return self.queryset.filter(event=self.kwargs.get("event_id"))
+
 
 class ListUserReservationsAPIView(generics.ListAPIView):
-
     """API view to list user reservations"""
 
     serializer_class = serializers.ReservationSerializer
@@ -41,10 +39,10 @@ class ListUserReservationsAPIView(generics.ListAPIView):
     queryset = models.Reservation.objects.all()
 
     def get_queryset(self):
-        email = self.kwargs.get('email')
+        email = self.kwargs.get("email")
 
         try:
-            user = get_user_model().objects.get(email=self.kwargs.get('email'))
+            user = get_user_model().objects.get(email=self.kwargs.get("email"))
             return self.queryset.filter(guest=user)
         except get_user_model().DoesNotExist:
             return self.queryset.none()
@@ -52,17 +50,18 @@ class ListUserReservationsAPIView(generics.ListAPIView):
 
 class CreateReservationAPIView(generics.CreateAPIView):
     """API view to create reservations"""
+
     serializer_class = serializers.ReservationSerializer
     permission_classes = [IsAuthenticated]
     parser_classes = (JSONParser,)
 
     def perform_create(self, serializer):
         reservation = serializer.save(guest=self.request.user)
-        
+
         event = reservation.event
         event.guests.add(self.request.user)
         event.save()
-        
+
         self.send_confirmation_email(reservation)
 
     def send_confirmation_email(self, reservation):
@@ -99,9 +98,7 @@ class CreateReservationAPIView(generics.CreateAPIView):
         utils.SendEmailUtil.send_mail(data)
 
 
-
 class RetreiveReservation(generics.RetrieveUpdateDestroyAPIView):
-
     """API view to retrieve a models"""
 
     serializer_class = serializers.ReservationSerializer
@@ -109,7 +106,7 @@ class RetreiveReservation(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Reservation.objects.all()
 
     def get_object(self):
-        return self.queryset.get(id=self.kwargs.get('id'))
+        return self.queryset.get(id=self.kwargs.get("id"))
 
     def perform_destroy(self, instance):
         event = instance.event

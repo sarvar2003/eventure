@@ -1,4 +1,4 @@
-from django_filters.rest_framework import DjangoFilterBackend   
+from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework import generics
 from rest_framework import viewsets
@@ -16,8 +16,11 @@ class AllEventsAPIView(generics.ListAPIView):
     serializer_class = serializers.EventSerializer
     queryset = Event.objects.all()
     permission_classes = (permissions.AllowAny,)
-    filter_backends = [DjangoFilterBackend,]
+    filter_backends = [
+        DjangoFilterBackend,
+    ]
     filterset_class = EventFilter
+
 
 class ListUserEventsAPIView(generics.ListAPIView):
     """API view to list user events"""
@@ -34,7 +37,7 @@ class ListUserEventsAPIView(generics.ListAPIView):
 class CreateEventAPIView(generics.CreateAPIView):
     """API view to create event"""
 
-    parser_classes = (JSONParser, FormParser, MultiPartParser) 
+    parser_classes = (JSONParser, FormParser, MultiPartParser)
     serializer_class = serializers.EventSerializer
     permission_classes = (permissions.AllowAny,)
 
@@ -45,7 +48,7 @@ class CreateEventAPIView(generics.CreateAPIView):
         if thumbnail:
             serializer.instance.thumbnail = thumbnail
             serializer.instance.save()
-        
+
         topics = self.request.data.get("topics")
         if topics:
             topic_list = []
@@ -71,7 +74,7 @@ class RetrieveEventAPIView(generics.RetrieveAPIView):
 class UpdateEventAPIView(generics.RetrieveUpdateDestroyAPIView):
     """API view to update event"""
 
-    parser_classes = (JSONParser, FormParser, MultiPartParser) 
+    parser_classes = (JSONParser, FormParser, MultiPartParser)
     serializer_class = serializers.EventSerializer
     permission_classes = (permissions.IsOwner,)
 

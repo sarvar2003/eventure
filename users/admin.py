@@ -8,7 +8,6 @@ from .models import User
 
 @admin.register(User)
 class UserAdminConfig(UserAdmin):
-    
     """User config for Admin Dashboard."""
 
     ordering = ["id"]

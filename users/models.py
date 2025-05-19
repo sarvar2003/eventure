@@ -1,16 +1,17 @@
 from typing import Any
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    PermissionsMixin,
+    BaseUserManager,
+)
 from django.utils.translation import gettext_lazy as _
 
 
-
-
 class UserManager(BaseUserManager):
-
-    """ 
+    """
     Object Manager for User model.
-    
+
     Supports the following operations:
 
         1. Creating users
@@ -19,15 +20,21 @@ class UserManager(BaseUserManager):
 
     use_in_migrations = True
 
-    def create_user(self, first_name, last_name, email, password=None, **kwargs: Any) -> Any:
-
+    def create_user(
+        self, first_name, last_name, email, password=None, **kwargs: Any
+    ) -> Any:
         """Creates a new user model with email validation."""
 
         # Email validation
         if not email:
-            raise ValueError(_('Email is required, please enter your email'))
-        
-        user = self.model(email=self.normalize_email(email), first_name=first_name, last_name=last_name, **kwargs)
+            raise ValueError(_("Email is required, please enter your email"))
+
+        user = self.model(
+            email=self.normalize_email(email),
+            first_name=first_name,
+            last_name=last_name,
+            **kwargs,
+        )
 
         # Users are not verified by default
         user.is_verified = False
@@ -40,13 +47,12 @@ class UserManager(BaseUserManager):
 
         return user
 
-    
     def create_superuser(self, first_name, last_name, email, password):
-
         """Creates a new admin user."""
 
-        user = self.create_user(first_name=first_name, last_name=last_name, email=email, password=password)
-
+        user = self.create_user(
+            first_name=first_name, last_name=last_name, email=email, password=password
+        )
 
         # Admin users are activated by default
         user.is_verified = True
@@ -57,17 +63,14 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
 
         return user
-   
+
     def normalize_email(self, email):
         """Normalize the entire email (not just domain)."""
         email = super().normalize_email(email)
         return email.lower()  # force full lowercase
 
-    
-
 
 class User(AbstractBaseUser, PermissionsMixin):
-
     """Base User model."""
 
     first_name = models.CharField(max_length=250)
@@ -81,9 +84,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
 
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    REQUIRED_FIELDS = ["first_name", "last_name"]
 
     def __str__(self):
         return self.email

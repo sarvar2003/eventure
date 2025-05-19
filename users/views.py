@@ -27,7 +27,7 @@ class AllUsers(generics.ListAPIView):
 
 class UserAPIView(generics.CreateAPIView):
     """API View for creating users."""
-    
+
     parser_classes = (JSONParser,)
     permission_classes = (custom_permission.AllowAny,)
     serializer_class = serializers.UserSerializer
@@ -45,7 +45,7 @@ class UserAPIView(generics.CreateAPIView):
         token, _ = Token.objects.get_or_create(user=user)
         frontend_base_url = "http://localhost:5173"
         reset_path = f"/verify-email/{token}"
-        absolute_url = frontend_base_url + reset_path        
+        absolute_url = frontend_base_url + reset_path
         email_body = "Plase use the link below to verify your email\n" + absolute_url
         html_message = render_to_string(
             "email_verification_page.html",
@@ -68,6 +68,7 @@ class UserAPIView(generics.CreateAPIView):
 
 class CurrentUserAPIView(generics.RetrieveDestroyAPIView):
     """Retrieve the currently authenticated user."""
+
     serializer_class = serializers.UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -86,6 +87,7 @@ class CurrentUserAPIView(generics.RetrieveDestroyAPIView):
 
 class UpdateUserAPIView(generics.RetrieveUpdateAPIView):
     """API View for updating the user."""
+
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = serializers.UpdateUserSerializer
     parser_classes = (JSONParser,)
@@ -98,7 +100,8 @@ class UpdateUserAPIView(generics.RetrieveUpdateAPIView):
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
+
 class SendPasswordResetEmailAPIView(views.APIView):
     """API View for sending password reset link."""
 

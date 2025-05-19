@@ -14,7 +14,7 @@ class EventModelTest(TestCase):
             email="host@example.com",
             first_name="Host",
             last_name="User",
-            password="password123"
+            password="password123",
         )
         self.future_date = timezone.now() + datetime.timedelta(days=10)
         Topic.objects.create(name="test_topic")
@@ -30,7 +30,7 @@ class EventModelTest(TestCase):
             number_of_seats=100,
             ticket_price=20.00,
             currency="USD",
-            description="A tech event."
+            description="A tech event.",
         )
         event.topics.add(self.topic)
 
@@ -49,7 +49,7 @@ class EventModelTest(TestCase):
             number_of_seats=50,
             ticket_price=15.00,
             currency="USD",
-            description="Coolest event ever."
+            description="Coolest event ever.",
         )
 
         self.assertEqual(event.slug_title, "my-cool-event")
@@ -65,7 +65,7 @@ class EventModelTest(TestCase):
             number_of_seats=10,
             ticket_price=0,
             currency="USD",
-            description="Past event."
+            description="Past event.",
         )
         self.assertEqual(event.date_time.date(), past_date.date())
 
@@ -79,14 +79,14 @@ class EventFilterTest(TestCase):
             email="filterhost@example.com",
             first_name="Filter",
             last_name="Host",
-            password="password123"
+            password="password123",
         )
 
         Topic.objects.create(name="test_topic1")
         Topic.objects.create(name="test_topic2")
         self.topic1 = Topic.objects.get(name="test_topic1")
         self.topic2 = Topic.objects.get(name="test_topic2")
-        
+
         self.event1 = Event.objects.create(
             host=self.user,
             title="Tech Meetup",
@@ -96,7 +96,7 @@ class EventFilterTest(TestCase):
             number_of_seats=100,
             ticket_price=10,
             currency="USD",
-            description="A tech meetup."
+            description="A tech meetup.",
         )
         self.event1.topics.add(self.topic1)
 
@@ -109,7 +109,7 @@ class EventFilterTest(TestCase):
             number_of_seats=100,
             ticket_price=15,
             currency="USD",
-            description="Tech conference."
+            description="Tech conference.",
         )
         self.event2.topics.add(self.topic2)
 
@@ -128,7 +128,9 @@ class EventFilterTest(TestCase):
     def test_filter_by_date_range(self):
         start_date = (timezone.now() + datetime.timedelta(days=1)).date()
         end_date = (timezone.now() + datetime.timedelta(days=10)).date()
-        response = self.client.get(f"/events/?start_date={start_date}&end_date={end_date}")
+        response = self.client.get(
+            f"/events/?start_date={start_date}&end_date={end_date}"
+        )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]["title"], "Tech Meetup")

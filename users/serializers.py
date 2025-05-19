@@ -69,8 +69,9 @@ class UpdateUserDetailsSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         return super().update(instance, validated_data)
 
+
 class UpdateUserSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = get_user_model()
         fields = ("first_name", "last_name", "email", "is_verified", "is_active")
@@ -79,6 +80,7 @@ class UpdateUserSerializer(serializers.ModelSerializer):
             "is_verified": {"read_only": True},
             "is_active": {"read_only": True},
         }
+
 
 class SendPasswordResetLinkSerializer(serializers.Serializer):
     """Serializer for sending password reset link."""
