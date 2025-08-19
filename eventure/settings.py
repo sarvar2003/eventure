@@ -30,7 +30,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["eventure.onrender.com", "localhost", "127.0.0.1"]
+
 
 
 # Application definition
@@ -77,11 +78,9 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-# CORS_ALLOWED_ORIGINS = [
-#     "https://eventure-client.vercel.app",
-# ]
-
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "https://eventure-client.vercel.app", "http://localhost:3000",
+]
 
 ROOT_URLCONF = "eventure.urls"  
 
