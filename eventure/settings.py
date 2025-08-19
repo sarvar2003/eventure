@@ -82,6 +82,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://eventure-client.vercel.app", "http://localhost:3000",
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True
+
 ROOT_URLCONF = "eventure.urls"  
 
 TEMPLATES = [
