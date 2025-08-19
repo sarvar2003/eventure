@@ -23,11 +23,11 @@ class Reservation(models.Model):
             if self.event.number_of_seats <= 0:
                 raise ValidationError("No seats available for this event.")
 
-            self.event.number_of_seats -= self.number_of_tickets
-            if self.event.number_of_seats < 0:
+            if self.number_of_tickets > self.event.number_of_seats:
                 raise ValidationError(
                     "Not enough seats available for this reservation."
                 )
+            self.event.number_of_seats -= self.number_of_tickets
             self.event.save()
 
         super(Reservation, self).save(*args, **kwargs)

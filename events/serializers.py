@@ -19,10 +19,10 @@ class EventSerializer(serializers.ModelSerializer):
     host_name = serializers.CharField(source="host.get_full_name", read_only=True)
     guests = UserSerializer(many=True, read_only=True)
     formatted_date = serializers.SerializerMethodField()
-    topics = TopicSerializer(many=True, read_only=True)
-    topic_ids = serializers.PrimaryKeyRelatedField(
-        queryset=models.Topic.objects.all(), many=True, write_only=True, source="topics"
-    )
+    # topics = TopicSerializer(many=True, read_only=True)
+    # topic_objects = serializers.PrimaryKeyRelatedField(
+    #     queryset=models.Topic.objects.all(), many=True, write_only=True, source="topics"
+    # )
 
     class Meta:
         model = models.Event
@@ -33,7 +33,7 @@ class EventSerializer(serializers.ModelSerializer):
             "title",
             "slug_title",
             "topics",
-            "topic_ids",
+            # "topic_ids",
             "language",
             "location",
             "date_time",
@@ -57,7 +57,6 @@ class EventSerializer(serializers.ModelSerializer):
             "date_updated",
             "host_name",
             "host",
-            "topics",
             "guests",
         )
 

@@ -317,8 +317,8 @@ class AuthTokenAPIView(ObtainAuthToken):
 
         serializer = serializers.AuthTokenSerializer(
             data=request.data, context={"request": request}
-        )
-        print(request.data)
+)
+
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data["user"]
         token, _ = Token.objects.get_or_create(user=user)
