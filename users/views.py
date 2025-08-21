@@ -61,7 +61,7 @@ class UserAPIView(generics.CreateAPIView):
         utils.SendEmailUtil.send_mail(data)
 
         return Response(
-            {"status": "Verify your email", "user": user_data},
+            {"status": "Verify your email"},
             status=status.HTTP_201_CREATED,
         )
 
