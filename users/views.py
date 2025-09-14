@@ -43,7 +43,7 @@ class UserAPIView(generics.CreateAPIView):
 
         user = get_user_model().objects.get(email=user_data["email"])
         token, _ = Token.objects.get_or_create(user=user)
-        frontend_base_url = "http://localhost:5173"
+        frontend_base_url = "https://eventure-client.vercel.app"
         reset_path = f"/verify-email/{token}"
         absolute_url = frontend_base_url + reset_path
         email_body = "Plase use the link below to verify your email\n" + absolute_url
@@ -120,7 +120,7 @@ class SendPasswordResetEmailAPIView(views.APIView):
             user = get_user_model().objects.get(email=email)
 
             token, _ = Token.objects.get_or_create(user=user)
-            frontend_base_url = "http://localhost:5173"
+            frontend_base_url = "https://eventure-client.vercel.app"
             reset_path = f"/password-reset/{token}"
             absolute_url = frontend_base_url + reset_path
             email_body = f"Hello, {user.first_name}! \nPlease use the link below to reset your password for your Eventure account.\n{absolute_url}"

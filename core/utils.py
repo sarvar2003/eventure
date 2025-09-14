@@ -10,7 +10,7 @@ class SendEmailUtil:
             email_subject = data["email_subject"]
             html_message = data["html_message"]
             text_content = data["email_body"]
-            from_email = "accounts@trendspot.uz"
+            from_email = "accounts@eventure.com"
             to_email = data["to_email"]
 
             email = EmailMultiAlternatives(
