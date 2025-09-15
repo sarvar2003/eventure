@@ -15,11 +15,11 @@ class SendEmailUtil:
             email_subject = data["email_subject"]
             html_message = data["html_message"]
             text_content = data["email_body"]
-            # from_email = "saravarjuraev@gmail.com"
+            from_email = "saravarjuraev@gmail.com"
             to_email = data["to_email"]
 
             email = EmailMultiAlternatives(
-                email_subject, text_content,  [to_email]
+                email_subject, text_content, from_email, [to_email]
             )
             email.attach_alternative(html_message, "text/html")
             # email.content_subtype = 'html'
