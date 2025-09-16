@@ -83,7 +83,7 @@ MIDDLEWARE = [
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
-    "https://eventure-client.vercel.app", "http://localhost:3000", "https://eventure.world", "https://www.eventure.world"
+    "https://eventure-client.vercel.app", "http://localhost:3000", "https://eventures.world", "https://www.eventures.world"
 ]
 
 
