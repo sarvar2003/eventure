@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["eventure-luqn.onrender.com", "localhost", "0.0.0.0"]
+ALLOWED_HOSTS = ["eventure-luqn.onrender.com", "localhost", "0.0.0.0", "api.eventure.com"]
 # ALLOWED_HOSTS = ["*"]
 
 
@@ -83,7 +83,7 @@ MIDDLEWARE = [
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
-    "https://eventure-client.vercel.app", "http://localhost:3000",
+    "https://eventure-client.vercel.app", "http://localhost:3000", "https://eventure.world", "https://www.eventure.world"
 ]
 
 
