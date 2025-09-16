@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+
 
 
 class SendEmailUtil:
@@ -15,7 +15,7 @@ class SendEmailUtil:
             email_subject = data["email_subject"]
             html_message = data["html_message"]
             text_content = data["email_body"]
-            from_email = "saravarjuraev@gmail.com"
+            from_email = "noreply@eventures.world"
             to_email = data["to_email"]
 
             email = EmailMultiAlternatives(

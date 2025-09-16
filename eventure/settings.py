@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["eventure-luqn.onrender.com", "localhost", "0.0.0.0", "api.eventure.com"]
+ALLOWED_HOSTS = ["eventure-luqn.onrender.com", "localhost", "0.0.0.0", "api.eventures.com"]
 # ALLOWED_HOSTS = ["*"]
 
 
