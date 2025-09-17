@@ -1,9 +1,4 @@
 from django.core.mail import EmailMessage, EmailMultiAlternatives
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-
 
 
 class SendEmailUtil:
