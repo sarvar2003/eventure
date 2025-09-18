@@ -115,7 +115,7 @@ WSGI_APPLICATION = "eventure.wsgi.application"
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://postgres:postgres@localhost:5432/eventure',
+        default='postgresql://postgres:postgres@localhost:5432/eventue-db',
         conn_max_age=600
     )
 }
