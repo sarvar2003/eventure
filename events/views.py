@@ -109,21 +109,9 @@ class UpdateEventAPIView(generics.RetrieveUpdateDestroyAPIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
             
 
-        
+class TopicsViewSet(viewsets.ModelViewSet):
+    """Viewset for topics"""
 
-
-class ListTopicsAPIView(viewsets.ReadOnlyModelViewSet):
-    """API view to list topics"""
-
-    serializer_class = serializers.TopicSerializer
-    permission_classes = (permissions.AllowAny,)
     queryset = Topic.objects.all()
-
-class RetrieveTopicAPIView(generics.RetrieveAPIView):
-    """API view to retrieve topic"""
-
     serializer_class = serializers.TopicSerializer
     permission_classes = (permissions.AllowAny,)
-
-    def get_object(self):
-        return Topic.objects.get(id=self.kwargs.get("id"))
