@@ -8,6 +8,5 @@ urlpatterns = [
     path("event/<int:id>/", views.RetrieveEventAPIView.as_view(), name="event-info"),
     path("event/<int:id>/update/",views.UpdateEventAPIView.as_view(),name="update-event"),
     path("user-events/<str:email>/",views.ListUserEventsAPIView.as_view(), name="user-events"),
-    path("topics/", views.ListTopicsAPIView.as_view({"get": "list"}), name="topics"),
-    path("topics/<int:id>/", views.RetrieveTopicAPIView.as_view(), name="retrieve-topic"),
+    path("topics/", views.TopicsViewSet.as_view({"get": "list"}), name="topics"),
 ]
