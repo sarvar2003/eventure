@@ -67,6 +67,12 @@ class CreateReservationAPIView(generics.CreateAPIView):
     def send_confirmation_email(self, reservation):
         """Send email after successful reservation creation."""
 
+        pdf_ticket = utils.generate_pdf(reservation)
+        if pdf_ticket:
+            attachment = pdf_ticket.getvalue()
+        else:
+            attachment = None
+
         html_message = render_to_string(
             "reservation_confirmation_email.html",
             context={
@@ -94,6 +100,13 @@ class CreateReservationAPIView(generics.CreateAPIView):
             "email_subject": "Your Reservation Confirmation - Eventure",
             "html_message": html_message,
         }
+
+        if attachment:
+            data["attachment"] = {
+                "file": attachment,
+                "filename": f"ticket_reservation_{reservation.id}.pdf",
+                "mimetype": "application/pdf",
+            }
 
         utils.SendEmailUtil.send_mail(data)
 

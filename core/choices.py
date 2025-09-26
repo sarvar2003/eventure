@@ -9,7 +9,6 @@ CURRENCY_OPTIONS = [("UZS", "UZS"), ("USD", "USD"), ("PLN", "PLN"), ("RUB", "RUB
 
 STATUS_OPTIONS = [
     ("pending", "pending"),
-    ("accepted", "accepted"),
     ("confirmed", "confirmed"),
 ]
 

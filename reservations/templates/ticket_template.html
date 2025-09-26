@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>  
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Helvetica, sans-serif; padding: 20px; }
+    .ticket {
+      border: 2px dashed #333;
+      padding: 20px;
+      display: flex; 
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 500px;
+      height: 250px;
+      border: 2px dashed #333;
+      box-sizing: border-box;
+    }
+    .event-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .qr {
+      margin-top: 20px;
+    }
+    .guest-txt {
+      font-size: 18px;
+      font-weight: bold;
+      color: #6931F5;
+      text-shadow: black;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="ticket">
+    <div class="left">
+      <div class="event-title">{{ reservation.event.title }}</div>
+      <p><b>Date:</b> {{ reservation.event.date_time }}</p>
+      <p><b>Location:</b> {{ reservation.event.location }}</p>
+      <p><b>Reservation ID:</b> {{ reservation.id }}</p>
+      <!-- I want to add reservation.guest in a cool format below -->
+      <p class="guest-txt">{{ reservation.guest}}</p>
+    </div>
+    <div class="qr">
+      <img src="data:image/png;base64,{{ qr_code }}" width="150" height="150" />
+    </div>
+  </div>
+</html>
