@@ -54,6 +54,4 @@ def generate_pdf(reservation):
     pdf_buffer = io.BytesIO()
     pisa.CreatePDF(io.StringIO(html), dest=pdf_buffer)
     pdf_buffer.seek(0)
-    if pisa.err:
-        return None
     return pdf_buffer
