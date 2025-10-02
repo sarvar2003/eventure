@@ -50,12 +50,13 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "cloudinary_storage",
     "cloudinary",
-    "storages",
     # Apps
     "users",
     "events",
     "reservations",
 ]
+
+INSTALLED_APPS += ["storages"]
 
 # Filtering
 REST_FRAMEWORK = {
