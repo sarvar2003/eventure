@@ -178,8 +178,6 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/'
 
-MEDIA_URL = '/media/'
-
 # Email
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
